@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  IMPLEMENTING CLASSES.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Geoffrey Tomlinson.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -39,12 +39,16 @@ def main():
     # UN-comment tests as you work the problems.
     ####################################################################
 
-#     run_test_init()
-#     run_test_append_string()
-#     run_test_double()
-#     run_test_shrink()
-#     run_test_double_then_shrink()
-#     run_test_reset()
+    # run_test_init()
+    # run_test_append_string()
+    # run_test_double()
+    # run_test_shrink()
+    # run_test_double_then_shrink()
+
+
+    run_test_reset()
+
+
 #     run_test_steal()
 #     run_test_get_history()
 #     run_test_combined_box()
@@ -93,8 +97,15 @@ class Box(object):
           :type contents: str
           :type volume: int
         """
+
+        if len(contents) > volume:
+            self.contents = ''
+        else:
+            self.contents = contents
+        self.volume = volume
+
         # --------------------------------------------------------------
-        # TODO: 2. Implement and test this function.
+        # DONE: 2. Implement and test this function.
         #     See the testing code (below) for more examples.
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -134,8 +145,24 @@ class Box(object):
         Type hints:
           :type additional_contents: str
         """
+        did_not_fit = ''
+        stuff_to_add = ''
+        count = 0
+        space = self.volume - len(self.contents)
+        if len(additional_contents) <= space:
+            did_not_fit = ''
+            self.contents = self.contents + additional_contents
+        else:
+            for k in range(space):
+                stuff_to_add = stuff_to_add + additional_contents[k]
+                count += 1
+            self.contents = self.contents + stuff_to_add
+            for k in range(count, len(additional_contents)):
+                did_not_fit = did_not_fit + additional_contents[k]
+        return did_not_fit
+
         # --------------------------------------------------------------
-        # TODO: 3. Implement and test this function.
+        # DONE: 3. Implement and test this function.
         #     See the testing code (below) for more examples.
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -162,7 +189,7 @@ class Box(object):
         What comes in:
           -- self
         What goes out:
-          Returrns a string that is whatever substring of the
+          Returns a string that is whatever substring of the
           doubled contents did not fit in this Box
           (or the empty string if the entire doubled contents fit)
         Side effects:
@@ -190,8 +217,11 @@ class Box(object):
           #   s is 'Robot Fun'   [this is the part of the doubled
           #                       contents that did NOT fit]
         """
+
+        return Box.append_string(self, self.contents)
+
         # --------------------------------------------------------------
-        # TODO: 4. Implement and test this function.
+        # DONE: 4. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -239,8 +269,28 @@ class Box(object):
         Type hints:
           :type new_volume: int
         """
+
+        self.volume = new_volume
+        count = 0
+        if self.volume < len(self.contents):
+
+            contents = ''
+            did_not_fit = ''
+
+            for k in range(self.volume):
+                contents = contents + self.contents[k]
+                count += 1
+
+            for k in range(count, len(self.contents)):
+                did_not_fit = did_not_fit + self.contents[k]
+
+            self.contents = contents
+        else:
+            did_not_fit = ''
+        return did_not_fit
+
         # --------------------------------------------------------------
-        # TODO: 5. Implement and test this function.
+        # DONE: 5. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -295,8 +345,14 @@ class Box(object):
         Type hints:
           :type new_volume: int
         """
+
+        count = 0
+        count += len(Box.double(self))
+        count += len(Box.shrink(self, new_volume))
+        return count
+
         # --------------------------------------------------------------
-        # TODO: 6. Implement and test this function.
+        # DONE: 6. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -1002,6 +1058,7 @@ def print_failure_message(message='  *** FAILED the above test. ***',
     print(message,
           file=sys.stderr, flush=True)
     time.sleep(flush_time)
+
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
