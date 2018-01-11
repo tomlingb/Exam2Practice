@@ -49,11 +49,13 @@ def main():
     # run_test_reset()
 
 
-    run_test_steal()
+    # run_test_steal()
 
 
-#     run_test_get_history()
-#     run_test_combined_box()
+    # run_test_get_history()
+
+
+    run_test_combined_box()
 
 
 ########################################################################
@@ -108,6 +110,7 @@ class Box(object):
             self.contents = contents
             self.ocontents = self.contents
         self.volume = volume
+        self.contents_list = []
 
         # --------------------------------------------------------------
         # DONE: 2. Implement and test this function.
@@ -376,6 +379,7 @@ class Box(object):
           when this Box was constructed.
         """
 
+        self.contents_list.append(self.contents)
         self.contents = self.ocontents
         self.volume = self.ovolume
 
@@ -454,10 +458,10 @@ class Box(object):
           #   h is now ['GoodGo', 'GoodBye']
         """
 
-        
+        return self.contents_list
 
         # --------------------------------------------------------------
-        # TODO: 9. Implement and test this function.
+        # DONE: 9. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -482,8 +486,14 @@ class Box(object):
         Type hints:
           :type other_box: Box
         """
+
+        new_volume = self.volume + other_box.volume
+        b = Box(self.contents, new_volume)
+        b.append_string(other_box.contents)
+        return b
+
         # --------------------------------------------------------------
-        # TODO: 10. Implement and test this function.
+        # DONE: 10. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
