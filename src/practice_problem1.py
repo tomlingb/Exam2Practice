@@ -46,10 +46,12 @@ def main():
     # run_test_double_then_shrink()
 
 
-    run_test_reset()
+    # run_test_reset()
 
 
-#     run_test_steal()
+    run_test_steal()
+
+
 #     run_test_get_history()
 #     run_test_combined_box()
 
@@ -98,10 +100,13 @@ class Box(object):
           :type volume: int
         """
 
+        self.ovolume = volume
         if len(contents) > volume:
             self.contents = ''
+            self.ocontents = self.contents
         else:
             self.contents = contents
+            self.ocontents = self.contents
         self.volume = volume
 
         # --------------------------------------------------------------
@@ -370,8 +375,12 @@ class Box(object):
           Changes this Box's contents and volume to whatever they were
           when this Box was constructed.
         """
+
+        self.contents = self.ocontents
+        self.volume = self.ovolume
+
         # --------------------------------------------------------------
-        # TODO: 7. Implement and test this function.
+        # DONE: 7. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -398,8 +407,11 @@ class Box(object):
         Type hints:
           :type other_box: Box
         """
+
+        other_box.contents = self.append_string(other_box.contents)
+
         # --------------------------------------------------------------
-        # TODO: 8. Implement and test this function.
+        # DONE: 8. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -441,6 +453,9 @@ class Box(object):
           h = b.get_history()
           #   h is now ['GoodGo', 'GoodBye']
         """
+
+        
+
         # --------------------------------------------------------------
         # TODO: 9. Implement and test this function.
         #     The testing code is already written for you (above).
